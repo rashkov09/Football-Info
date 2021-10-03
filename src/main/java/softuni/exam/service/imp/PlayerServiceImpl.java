@@ -15,6 +15,7 @@ import softuni.exam.util.FileUtil;
 import softuni.exam.util.ValidatorUtil;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 @Service
@@ -72,13 +73,23 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public String exportPlayersWhereSalaryBiggerThan() {
-        //TODO Implement me
-        return "";
+        StringBuilder builder = new StringBuilder();
+        BigDecimal salary = new BigDecimal(100000);
+        playerRepository.findAllBySalaryAfter(salary).stream().sorted((p,p1)-> p1.getSalary().compareTo(p.getSalary())).forEach(player -> {
+            builder.append(String.format("Player name: %s%n     Number: %d%n     Salary: %.2f%n     Team: %s%n",
+                    player.getFirstName()+" "+player.getLastName(), player.getNumber(), player.getSalary(), player.getTeam().getName()));
+        });
+        return builder.toString();
     }
 
     @Override
     public String exportPlayersInATeam() {
-        //TODO Implement me
-        return "";
+        StringBuilder builder = new StringBuilder();
+        String name = "North Hub";
+        builder.append("Team: North Hub%n");
+        playerRepository.findPlayersByTeamName(name).forEach(player -> {
+            builder.append(String.format("Player name: %s  - %s%nNumber: %d%n",player.getFirstName()+" "+player.getLastName(),player.getPosition().name(),player.getNumber()));
+        });
+        return builder.toString();
     }
 }
