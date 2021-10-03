@@ -86,7 +86,8 @@ public class PlayerServiceImpl implements PlayerService {
     public String exportPlayersInATeam() {
         StringBuilder builder = new StringBuilder();
         String name = "North Hub";
-        builder.append("Team: North Hub%n");
+        builder.append("Team: North Hub").append(System.lineSeparator());
+
         playerRepository.findPlayersByTeamName(name).forEach(player -> {
             builder.append(String.format("Player name: %s  - %s%nNumber: %d%n",player.getFirstName()+" "+player.getLastName(),player.getPosition().name(),player.getNumber()));
         });
