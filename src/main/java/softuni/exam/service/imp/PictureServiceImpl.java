@@ -69,4 +69,9 @@ public class PictureServiceImpl implements PictureService {
         return pictureRepository.findPictureByUrl(url);
     }
 
+    @Override
+    public Picture getPicture(String url) {
+        return findPictureByUrl(url);
+    }
+
 }

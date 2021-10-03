@@ -69,4 +69,9 @@ public class TeamServiceImpl implements TeamService {
     public String readTeamsXmlFile() throws IOException {
         return fileUtil.readFile(TEAMS_FILE_PATH);
     }
+
+    @Override
+    public Team getTeam(String name) {
+        return teamRepository.getByName(name);
+    }
 }
